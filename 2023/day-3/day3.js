@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const part1 = (data) => {
+const solve = (data, part2 = false) => {
     const lines = data.split('\n');
     let allPartsNumbers = [];
 
@@ -31,7 +31,13 @@ const part1 = (data) => {
                     numbers.push(parseInt(number));
                 }
             }
-        }
+		}
+		if(part2) {
+			if(numbers.length > 1) {
+				return [numbers.reduce((ratio, partNumber) => (ratio * partNumber))];
+			}
+			return [];
+		}
         return numbers;
     }
 
@@ -42,8 +48,7 @@ const part1 = (data) => {
             allPartsNumbers = allPartsNumbers.concat(getNeighbouringNumbers(i, symbolMatch.index));
         }
 
-    }
-
+	}
     console.log(allPartsNumbers.reduce((sum, partNumber) => (sum + partNumber)));
 
 }
@@ -54,6 +59,6 @@ fs.readFile(path.resolve(__dirname, "input"), 'utf8', (err, data) => {
         console.error(err);
         return;
     }
-    part1(data); //557705
+    solve(data, true); //part1 557705 part 2 84266818
 
 });
