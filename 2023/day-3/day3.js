@@ -37,14 +37,9 @@ const part1 = (data) => {
 
     for (let i = lines.length - 1; i >= 0; i--) {
         const line = lines[i];
-        const symbolIndexes = line.split('').reduce((indexes, currentChar, currentIndex) => {
-            if (currentChar.match(/[^\.0-9]/)) {
-                indexes.push(currentIndex);
-            }
-            return indexes;
-        }, []);
-        for (const symbolIndex of symbolIndexes) {
-            allPartsNumbers = allPartsNumbers.concat(getNeighbouringNumbers(i, symbolIndex));
+        const symbols = line.matchAll(/[^\.0-9]/g);
+        for (const symbolMatch of symbols) {
+            allPartsNumbers = allPartsNumbers.concat(getNeighbouringNumbers(i, symbolMatch.index));
         }
 
     }
